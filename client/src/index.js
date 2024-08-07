@@ -1,16 +1,34 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import React, { useState, useEffect } from 'react';
+import { createRoot } from 'react-dom/client';
+import { IntlProvider } from 'react-intl';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { loadLocale } from './utils/locale'; 
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+const Root = () => {
+  const [locale] = useState(navigator.language); 
+  const [messages, setMessages] = useState({});
+  const [loading, setLoading] = useState(true);
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+  useEffect(() => {
+    setLoading(true);
+    const languageCode = locale.split('-')[0];
+    loadLocale(languageCode).then(loadedMessages => {
+      setMessages(loadedMessages);
+      setLoading(false);
+    });
+  }, [locale]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <IntlProvider locale={locale} messages={messages}>
+      <App />
+    </IntlProvider>
+  );
+};
+
+const container = document.getElementById('root');
+const root = createRoot(container);
+root.render(<Root />);
