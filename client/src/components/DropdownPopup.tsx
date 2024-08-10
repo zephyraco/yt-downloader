@@ -28,13 +28,16 @@ const DropdownPopup = (props: DropdownPopupProps) => {
   };
   return (
     isVisible && (
-      <Popup>
-        {options.map((option, index) => (
-          <StyledOption key={index} onClick={() => handleClick(option)}>
-            {option}
-          </StyledOption>
-        ))}
-      </Popup>
+      <>
+
+        <Popup>
+          {options.map((option, index) => (
+            <StyledOption key={index} onClick={() => handleClick(option)}>
+              {option}
+            </StyledOption>
+          ))}
+        </Popup>
+      </>
     )
   );
 };

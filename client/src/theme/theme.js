@@ -20,7 +20,6 @@ export const theme = {
     height: '100vh',
     width: '100vw',
     boxSizing: 'border-box',
-    overflow: 'hidden',
   },
   navbarContainer: {
     position: 'fixed',
@@ -72,9 +71,15 @@ export const theme = {
   pageContainer: {
     width: '100vw',
     height: '80vh',
-    position: 'relative',
+    position: 'fixed',
     top: '9vh',
     left: '0',
+    backgroundColor: COLORS.black,
+    fontFamily: FONT,
+    fontWeight: 200,
+    color: COLORS.white,
+    fontSize: '1rem',
+    boxSizing: 'border-box',
   },
   card: {
     backgroundColor: COLORS.grey_dark,
@@ -84,7 +89,7 @@ export const theme = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 'auto',
-    height: 'auto',
+    maxHeight: '60vh',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -122,7 +127,7 @@ export const theme = {
     color: COLORS.light_grey,
     outline: 'none',
     cursor: 'pointer',
-    appearance: 'none', 
+    appearance: 'none',
     '-webkit-appearance': 'none',
     '-moz-appearance': 'none',
   },
@@ -135,20 +140,20 @@ export const theme = {
     color: COLORS.light_grey,
     outline: 'none',
     cursor: 'pointer',
-    appearance: 'none' ,
+    appearance: 'none',
     '-webkit-appearance': 'none',
     '-moz-appearance': 'none',
   },
   popup: {
+    backgroundColor: COLORS.grey_dark,
+    padding: '30px',
     position: 'absolute',
-    top: 'auto',
-    left: '100%',
+    left: "100%",
     borderRadius: '5px',
     zIndex: 1000,
   },
-  imageContainer:{
-    width: "220px",
+  imageContainer: {
+    width: '220px',
     height: 'auto',
-
-  }
+  },
 };
