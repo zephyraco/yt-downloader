@@ -1,3 +1,5 @@
+const base_url = 'http://localhost:5050';
+
 export const getVideoInfo = async (
   url,
   setShowInput,
@@ -13,7 +15,7 @@ export const getVideoInfo = async (
   setShowInput(false);
   try {
     const response = await fetch(
-      `http://localhost:5050/get-info?url=${encodeURIComponent(url)}`
+      `${base_url}/get-info?url=${encodeURIComponent(url)}`
     );
     const data = await response.json();
     setVideoInfo(data);
@@ -33,7 +35,7 @@ export const downloadVideo = async (url, format, quality, setLoading, setError) 
             quality,
         });
 
-        const response = await fetch(`http://localhost:5050/download?${params}`);
+        const response = await fetch(`${base_url}/download?${params}`);
         if (!response.ok) {
             throw new Error('Failed to download video');
         }
