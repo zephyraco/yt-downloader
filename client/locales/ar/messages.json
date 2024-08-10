@@ -3,5 +3,7 @@
   "login": "تسجيل الدخول",
   "logout": "تسجيل الخروج",
   "download_vid": "انقر فوق الزر لتنزيل الفيديو",
-  "new_something": "مرحبًا ، يعجبني ساعتك الجديدة"
+  "new_something": "مرحبًا ، تعجبني ساعتك الجديدة",
+  "footer-all-rights-reserved": "جميع الحقوق محفوظة.",
+  "footer-description": "قم بتنزيل مقاطع فيديو YouTube باستخدام Zephyra"
 }

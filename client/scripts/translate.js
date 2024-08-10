@@ -63,7 +63,7 @@ const translateFile = async (data, targetLang) => {
 };
 
 const translateAllLanguages = async () => {
-	const sourceFilePath = './src/locales/en/messages.json';
+    const sourceFilePath = join(__dirname, '../locales/en/messages.json');
 	const data = readFileSync(sourceFilePath, 'utf-8').replace(/\n/g, '');
 
 	for (const targetLang of targetLanguages) {

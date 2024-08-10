@@ -3,5 +3,7 @@
   "login": "Connexion",
   "logout": "Déconnexion",
   "download_vid": "Cliquez sur le bouton pour télécharger la vidéo",
-  "new_something": "Hé, j'aime bien ta nouvelle montre"
+  "new_something": "Hé, j'aime ta nouvelle montre",
+  "footer-all-rights-reserved": "Tous droits réservés.",
+  "footer-description": "Téléchargez des vidéos YouTube avec Zephyra"
 }
