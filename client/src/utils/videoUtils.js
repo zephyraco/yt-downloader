@@ -26,38 +26,45 @@ export const getVideoInfo = async (
   }
 };
 
-export const downloadVideo = async (url, format, quality, setLoading, setError) => {
-    try {
-        setLoading(true);
-        const params = new URLSearchParams({
-            url: encodeURI(url),
-            format,
-            quality,
-        });
+export const downloadVideo = async (
+  url,
+  format,
+  quality,
+  setLoading,
+  setError
+) => {
+  try {
+    setLoading(true);
+    const params = new URLSearchParams({
+      url: encodeURI(url),
+      format,
+      quality,
+    });
 
-        const response = await fetch(`${base_url}/download?${params}`);
-        if (!response.ok) {
-            throw new Error('Failed to download video');
-        }
-
-        const contentDisposition = response.headers.get('Content-Disposition');
-        const fileNameMatch = contentDisposition && contentDisposition.match(/filename="(.+)"/);
-        const fileName = fileNameMatch ? fileNameMatch[1] : 'downloaded-video';
-
-        setLoading(false);
-        const blob = await response.blob();
-
-        const link = document.createElement('a');
-        link.href = window.URL.createObjectURL(blob);
-        link.download = fileName;
-        document.body.appendChild(link);
-        link.click();
-
-        document.body.removeChild(link);
-        window.URL.revokeObjectURL(link.href);
-    } catch (error) {
-        setLoading(false);
-        setError(true);
-        console.error('Error downloading video:', error);
+    const response = await fetch(`${base_url}/download?${params}`);
+    if (!response.ok) {
+      throw new Error('Failed to download video');
     }
+
+    const contentDisposition = response.headers.get('Content-Disposition');
+    const fileNameMatch =
+      contentDisposition && contentDisposition.match(/filename="(.+)"/);
+    const fileName = fileNameMatch ? fileNameMatch[1] : 'downloaded-video';
+
+    setLoading(false);
+    const blob = await response.blob();
+
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(link.href);
+  } catch (error) {
+    setLoading(false);
+    setError(true);
+    console.error('Error downloading video:', error);
+  }
 };
