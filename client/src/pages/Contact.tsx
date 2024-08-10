@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle, faTwitter } from '@fortawesome/fontawesome-free-brands';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import {  CSSProperties } from 'styled-components/dist/types';
+import { CSSProperties } from 'styled-components/dist/types';
 import { theme } from '../theme/theme';
 import { emailAddress, twitterURl } from '../constants/constants';
 import { Link } from 'react-router-dom';
@@ -44,12 +44,11 @@ const Contact = () => {
           </header>
 
           <section>
-          <Paragraph>
+            <Paragraph>
               {formatMessage({
                 id: 'contact_name',
                 defaultMessage: 'Zephyra Co (2024)',
               })}
-             
             </Paragraph>
             <Paragraph>
               {formatMessage({
@@ -68,7 +67,11 @@ const Contact = () => {
                 id: 'contact_email',
                 defaultMessage: 'Connect via email:',
               })}
-              <a href={`mailto:${emailAddress}`} target="_blank" rel="noopener noreferrer">
+              <a
+                href={`mailto:${emailAddress}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <FontAwesomeIcon
                   icon={faGoogle as IconProp}
                   style={IconStyle}

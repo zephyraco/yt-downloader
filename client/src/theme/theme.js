@@ -148,7 +148,7 @@ export const theme = {
     backgroundColor: COLORS.grey_dark,
     padding: '30px',
     position: 'absolute',
-    left: "100%",
+    left: '100%',
     borderRadius: '5px',
     zIndex: 1000,
   },

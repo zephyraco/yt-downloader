@@ -1,67 +1,67 @@
 {
-	"name": "client",
-	"version": "0.1.0",
-	"private": true,
-	"dependencies": {
-		"@fortawesome/fontawesome-svg-core": "^6.6.0",
-		"@fortawesome/react-fontawesome": "^0.2.2",
-		"@google/generative-ai": "^0.16.0",
-		"@testing-library/jest-dom": "^5.17.0",
-		"@testing-library/react": "^13.4.0",
-		"@testing-library/user-event": "^13.5.0",
-		"babel-plugin-formatjs": "^10.5.16",
-		"intl": "^1.2.5",
-		"react": "^18.3.1",
-		"react-dom": "^18.3.1",
-		"react-intl": "^6.6.8",
-		"react-intl-universal": "^2.11.1",
-		"react-router-dom": "^6.26.0",
-		"react-scripts": "5.0.1",
-		"react-spinners": "^0.14.1",
-		"web-vitals": "^2.1.4"
-	},
-	"scripts": {
-		"translate": "node scripts/translate.js",
-		"start": "react-scripts start",
-		"build": "npm run translate && npm run format && npm run lint && react-scripts build",
-		"test": "react-scripts test",
-		"eject": "react-scripts eject",
-		"lint": "eslint .",
-		"format": "prettier --write .",
-		"prepare": "npm run translate && npm run format && npm run lint"
-	},
-	"eslintConfig": {
-		"extends": [
-			"react-app",
-			"react-app/jest"
-		]
-	},
-	"browserslist": {
-		"production": [
-			">0.2%",
-			"not dead",
-			"not op_mini all"
-		],
-		"development": [
-			"last 1 chrome version",
-			"last 1 firefox version",
-			"last 1 safari version"
-		]
-	},
-	"devDependencies": {
-		"@eslint/js": "^9.8.0",
-		"@types/react-helmet": "^6.1.11",
-		"@typescript-eslint/eslint-plugin": "^8.0.0",
-		"@typescript-eslint/parser": "^8.0.0",
-		"ajv": "^8.17.1",
-		"dotenv": "^16.4.5",
-		"eslint": "^9.8.0",
-		"eslint-config-prettier": "^9.1.0",
-		"eslint-plugin-prettier": "^5.2.1",
-		"eslint-plugin-react": "^7.35.0",
-		"globals": "^15.8.0",
-		"prettier": "^3.3.3",
-		"react-helmet": "^6.1.0",
-		"styled-components": "^6.1.12"
-	}
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.6.0",
+    "@fortawesome/react-fontawesome": "^0.2.2",
+    "@google/generative-ai": "^0.16.0",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "babel-plugin-formatjs": "^10.5.16",
+    "intl": "^1.2.5",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-intl": "^6.6.8",
+    "react-intl-universal": "^2.11.1",
+    "react-router-dom": "^6.26.0",
+    "react-scripts": "5.0.1",
+    "react-spinners": "^0.14.1",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "translate": "node scripts/translate.js",
+    "start": "react-scripts start",
+    "build": "npm run translate && npm run format && npm run lint && react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "prepare": "npm run translate && npm run format && npm run lint"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.8.0",
+    "@types/react-helmet": "^6.1.11",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "ajv": "^8.17.1",
+    "dotenv": "^16.4.5",
+    "eslint": "^9.8.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-react": "^7.35.0",
+    "globals": "^15.8.0",
+    "prettier": "^3.3.3",
+    "react-helmet": "^6.1.0",
+    "styled-components": "^6.1.12"
+  }
 }
