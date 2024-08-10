@@ -1,4 +1,9 @@
 const ytdl = require("@distube/ytdl-core");
+const ffmpeg = require("fluent-ffmpeg");
+const fs = require("fs");
+const path = require("path");
+const { v4: uuidv4 } = require("uuid");
+
 exports.getVideoInfo = async (req, res) => {
 	const videoUrl = req.query.url;
 	if (!ytdl.validateURL(videoUrl)) {
@@ -39,24 +44,85 @@ exports.getVideoInfo = async (req, res) => {
 	}
 };
 
+// Function to validate the YouTube URL
+const validateUrl = (url) => {
+	return ytdl.validateURL(url);
+};
+
+// Function to download the video or audio stream
+const downloadStream = (url, format, filePath) => {
+	return new Promise((resolve, reject) => {
+		ytdl(url, { format })
+			.pipe(fs.createWriteStream(filePath))
+			.on("finish", resolve)
+			.on("error", reject);
+	});
+};
+
+// Function to combine video and audio using ffmpeg
+const combineVideoAudio = (videoPath, audioPath, outputPath) => {
+	return new Promise((resolve, reject) => {
+		ffmpeg()
+			.input(videoPath)
+			.input(audioPath)
+			.output(outputPath)
+			.on("end", resolve)
+			.on("error", reject)
+			.run();
+	});
+};
+
+// Function to clean up temporary files
+const cleanUpFiles = (files) => {
+	files.forEach((file) => {
+		fs.unlink(file, (err) => {
+			if (err) console.error(`Error deleting file ${file}:`, err);
+		});
+	});
+};
+
 exports.download = async (req, res) => {
 	const videoUrl = req.query.url;
 	const selectedFormat = req.query.format;
 	const quality = req.query.quality;
-
-	if (!ytdl.validateURL(videoUrl)) {
+	if (!validateUrl(videoUrl)) {
 		return res.status(400).send("Invalid YouTube URL");
 	}
 
 	try {
 		const info = await ytdl.getInfo(videoUrl);
-		const format = info.formats.find(
+		let videoFormat = info.formats.find(
 			(format) =>
 				format.container === selectedFormat &&
-				format.qualityLabel === quality
+				format.qualityLabel === quality &&
+				format.hasVideo &&
+				!format.hasAudio
 		);
+		const audioFormat = ytdl.chooseFormat(info.formats, {
+			quality: "highestaudio",
+		});
 
-		if (!format) {
+		// If the exact format and quality aren't found, select the next best quality
+		if (!videoFormat) {
+			const availableQualities = info.formats
+				.filter(
+					(f) =>
+						f.container === selectedFormat &&
+						f.hasVideo &&
+						!f.hasAudio
+				)
+				.map((f) => ({
+					format: f,
+					quality: parseInt(f.qualityLabel.replace("p", ""), 10),
+				}))
+				.sort((a, b) => b.quality - a.quality);
+
+			videoFormat =
+				availableQualities.find(
+					(f) => f.quality < parseInt(quality.replace("p", ""), 10)
+				)?.format || availableQualities[0]?.format;
+		}
+		if (!videoFormat || !audioFormat) {
 			return res.status(400).send("Invalid format or quality");
 		}
 
@@ -64,39 +130,40 @@ exports.download = async (req, res) => {
 			/[^a-zA-Z0-9 ]/g,
 			""
 		);
-		const fileName = `${videoTitle}.${selectedFormat}`;
+		const tempVideoPath = path.join(
+			__dirname,
+			`${uuidv4()}_video.${selectedFormat}`
+		);
+		const tempAudioPath = path.join(
+			__dirname,
+			`${uuidv4()}_audio.${audioFormat.container}`
+		);
+		const outputFilePath = path.join(
+			__dirname,
+			`${uuidv4()}_${videoTitle}.${selectedFormat}`
+		);
 
-		// Set headers before piping
+		// Download video and audio streams
+		await downloadStream(videoUrl, videoFormat, tempVideoPath);
+		await downloadStream(videoUrl, audioFormat, tempAudioPath);
+
+		// Combine video and audio
+		await combineVideoAudio(tempVideoPath, tempAudioPath, outputFilePath);
+
+		// Stream the combined file to the client
 		res.setHeader(
 			"Content-Disposition",
-			`attachment; filename="${fileName}"`
+			`attachment; filename="${videoTitle}.${selectedFormat}"`
 		);
-		res.setHeader("Content-Type", format.mimeType.split(";")[0]);
+		res.setHeader("Content-Type", videoFormat.mimeType.split(";")[0]);
 
-		// Stream the video to the client
-		const videoStream = ytdl(videoUrl, {
-			format: format,
-			highWaterMark: 1 << 30, // 1 GB buffer
-			requestOptions: {
-				headers: {
-					"User-Agent":
-						"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3",
-					"Accept-Language": "en-US,en;q=0.8",
-					Referrer: "https://www.youtube.com/",
-				},
-			},
-		});
-		console.log(";po");
-		videoStream.on("error", (err) => {
-			console.error("Stream error:", err);
-			// Only send a response if it hasn't been sent yet
-			if (!res.headersSent) {
-				res.status(500).send("Error processing video");
-			}
-		});
+		const readStream = fs.createReadStream(outputFilePath);
+		readStream.pipe(res);
 
-		// Pipe the video stream to the response
-		videoStream.pipe(res);
+		// Cleanup temporary files after streaming
+		readStream.on("close", () => {
+			cleanUpFiles([tempVideoPath, tempAudioPath, outputFilePath]);
+		});
 	} catch (err) {
 		console.error(err);
 		if (!res.headersSent) {
