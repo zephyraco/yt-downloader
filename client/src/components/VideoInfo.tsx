@@ -65,7 +65,7 @@ const VideoInfo: React.FC<VideoInfoProps> = (props: VideoInfoProps) => {
           <Title>{title}</Title>
           <Description>{author}</Description>
           <FlexContainer>
-            <Label>Choose Format:</Label>
+            <Label>{formatMessage({ id: 'choose_format_label' })}</Label>
             <StyledSelect
               id="format"
               onClick={() => setFormatOptionsVisible(!formatOptionsVisible)}
@@ -81,7 +81,7 @@ const VideoInfo: React.FC<VideoInfoProps> = (props: VideoInfoProps) => {
             />
           </FlexContainer>
           <FlexContainer>
-            <Label>Choose quality:</Label>
+            <Label>{formatMessage({ id: 'choose_quality_label' })}</Label>
 
             <StyledSelect
               id="quality"
