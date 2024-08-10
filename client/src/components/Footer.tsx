@@ -48,7 +48,7 @@ const Footer: React.FC<FooterProps> = (props: FooterProps) => {
         </Div>
         <FlexContainer>
           <CircularContainer>
-            <Link to={twitterURl}>
+            <Link to={twitterURl} target="blank">
               <FontAwesomeIcon
                 icon={faTwitter as IconProp}
                 style={iconStyle}

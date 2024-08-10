@@ -4,6 +4,7 @@ import { IntlProvider } from 'react-intl';
 import App from './App';
 import { loadLocale } from './utils/locale';
 import './index.css';
+import Loading from './components/Loading';
 
 const Root = () => {
   const [locale] = useState(navigator.language);
@@ -20,7 +21,7 @@ const Root = () => {
   }, [locale]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   return (

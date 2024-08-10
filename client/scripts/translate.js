@@ -55,7 +55,6 @@ const translateFile = async (data, targetLang) => {
         translatedData = await translateText(data, targetLang);
         const messages = JSON.parse(translatedData);
         writeFileSync(targetFile, JSON.stringify(messages, null, 2));
-        console.log(`Translation for ${targetLang} complete`);
     } catch (error) {
         console.error(`Translation for ${targetLang} failed: ${error.message}`);
         throw error;

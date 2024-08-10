@@ -1,13 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { IntlShape } from 'react-intl';
+import { FlexContainer } from './StyledDivs';
 
 const NavbarContainer = styled.nav`
   ${({ theme }) => theme.navbarContainer}
-`;
-
-const FlexContainer = styled.div`
-  ${({ theme }) => theme.flexContainer}
 `;
 
 const Logo = styled.div`
@@ -27,17 +25,29 @@ const NavLink = styled(Link)`
   }
 `;
 
-const Navbar: React.FC = () => {
+interface NavbarProps {
+  intl: IntlShape;
+}
+
+const Navbar: React.FC<NavbarProps> = (props: NavbarProps) => {
+  const { intl } = props;
+  const { formatMessage } = intl;
   return (
     <NavbarContainer>
       <FlexContainer>
         <Logo>Zephyra</Logo>
-        <desc>Free Youtube Video Downloader</desc>
+        <div>{formatMessage({ id: 'nav_desc' })}</div>
       </FlexContainer>
       <NavLinks>
-        <NavLink to="/">Home</NavLink>
-        <NavLink to="/about">About</NavLink>
-        <NavLink to="/contact">Contact</NavLink>
+        <NavLink to="/">
+          {formatMessage({ id: 'nav_home', defaultMessage: 'Home' })}
+        </NavLink>
+        <NavLink to="/about">
+          {formatMessage({ id: 'nav_about', defaultMessage: 'About' })}
+        </NavLink>
+        <NavLink to="/contact">
+          {formatMessage({ id: 'nav_contact', defaultMessage: 'Contact' })}
+        </NavLink>
       </NavLinks>
     </NavbarContainer>
   );

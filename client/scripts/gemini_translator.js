@@ -46,7 +46,6 @@ async function gemini_translate(text, lang) {
 		const result = await chatSession.sendMessage(
 			`${text}, "${lang}"\n`
 		);
-        console.log(result.response.text());
 		return result.response.text();
 	} catch (error) {
         console.log(error);

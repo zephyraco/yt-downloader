@@ -3,16 +3,9 @@ import { IntlShape } from 'react-intl';
 import styled from 'styled-components';
 import DropdownPopup from './DropdownPopup';
 import DownloadButton from './DownloadButton';
-
-export interface VideoData {
-  info: any;
-  title: string;
-  thumbnail: string;
-  availableFormats: string[]; // Update the type to string[]
-  qualityOptions: string[]; // Update the type to string[]
-  author: string;
-  url: string;
-}
+import { VideoData } from '../types/VideoData';
+import { Container, FlexContainer } from './StyledDivs';
+import { downloadVideo } from '../utils/videoUtils';
 
 interface VideoInfoProps {
   intl: IntlShape;
@@ -20,10 +13,6 @@ interface VideoInfoProps {
   setLoading: (flag: boolean) => void;
   setError: (flag: boolean) => void;
 }
-
-const FlexContainer = styled.div`
-  ${({ theme }) => theme.flexContainer};
-`;
 
 const FlexColumn = styled.div`
   ${({ theme }) => theme.flexColumn}
@@ -64,46 +53,8 @@ const VideoInfo: React.FC<VideoInfoProps> = (props: VideoInfoProps) => {
   const [selectedFormat, setSelectedFormat] = useState(availableFormats[0]);
   const [quality, setQuality] = useState(qualityOptions[0]);
 
-  const handleDownload = async (
-    url: string,
-    format: string,
-    quality: string
-  ) => {
-    try {
-      setLoading(true);
-      const params = new URLSearchParams({
-        url: encodeURI(url),
-        format: format,
-        quality: quality,
-      });
-
-      const response = await fetch(`http://localhost:5050/download?${params}`);
-      if (!response.ok) {
-        throw new Error('Failed to download video');
-      }
-
-      const contentDisposition = response.headers.get('Content-Disposition');
-      const fileNameMatch =
-        contentDisposition && contentDisposition.match(/filename="(.+)"/);
-      const fileName = fileNameMatch ? fileNameMatch[1] : 'downloaded-video';
-      console.log('res', response);
-      setLoading(false);
-      const blob = await response.blob();
-
-      const link = document.createElement('a');
-      link.href = window.URL.createObjectURL(blob);
-      link.download = fileName;
-      document.body.appendChild(link);
-      link.click();
-
-      document.body.removeChild(link);
-      window.URL.revokeObjectURL(link.href);
-    } catch (error) {
-      setLoading(false);
-      setError(true);
-      console.error('Error downloading video:', error);
-    }
-  };
+  const handleDownload = () =>
+    downloadVideo(url, selectedFormat, quality, setLoading, setError);
   return (
     <>
       <FlexContainer>
@@ -150,7 +101,7 @@ const VideoInfo: React.FC<VideoInfoProps> = (props: VideoInfoProps) => {
       </FlexContainer>
       <Description>{formatMessage({ id: 'video_format_note' })}</Description>
       <DownloadButton
-        onClick={() => handleDownload(url, selectedFormat, quality)}
+        onClick={handleDownload}
         text={formatMessage({ id: 'download' })}
       />
     </>

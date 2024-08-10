@@ -1,22 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { HomepageProps } from '../types/HomepageProps';
 import HeadSection from '../components/HeadSection';
-import VideoInfo, { VideoData } from '../components/VideoInfo';
+import VideoInfo from '../components/VideoInfo';
 import InputContainer from '../components/InputContainer';
 import Loading from '../components/Loading';
 import Error from '../components/Error';
 import { Card, Container } from '../components/StyledDivs';
+import { mockVideoInfo } from '../constants/constants';
+import { IntlShape } from 'react-intl';
 
-const mockVideoInfo: VideoData = {
-  info: {},
-  title: 'Title',
-  thumbnail:
-    'https://i.ytimg.com/vi/UrsmFxEIp5k/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLCPOBY325gWnkx4d68F5jPHCvMLFQ',
-  availableFormats: ['mp4', 'mp3'],
-  qualityOptions: ['1080p', '2040p'],
-  author: 'ABC',
-  url: 'www.google.com',
-};
+interface HomepageProps {
+  intl: IntlShape;
+}
 
 const HomePage = (props: HomepageProps) => {
   const { intl } = props;
@@ -31,7 +25,7 @@ const HomePage = (props: HomepageProps) => {
   }, [showInput]);
 
   return (
-    <Container>
+    <>
       <HeadSection />
       <main>
         <Card>
@@ -56,7 +50,7 @@ const HomePage = (props: HomepageProps) => {
           )}
         </Card>
       </main>
-    </Container>
+    </>
   );
 };
 
