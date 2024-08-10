@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import { IntlProvider } from 'react-intl';
 import App from './App';
-import { loadLocale } from './utils/locale'; 
+import { loadLocale } from './utils/locale';
+import './index.css';
 
 const Root = () => {
-  const [locale] = useState(navigator.language); 
+  const [locale] = useState(navigator.language);
   const [messages, setMessages] = useState({});
   const [loading, setLoading] = useState(true);
 

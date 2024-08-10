@@ -3,5 +3,7 @@
   "login": "Iniciar sesión",
   "logout": "Cerrar sesión",
   "download_vid": "Haz clic en el botón para descargar el video",
-  "new_something": "Oye, me gusta tu nuevo reloj"
+  "new_something": "Oye, me gusta tu nuevo reloj",
+  "footer-all-rights-reserved": "Todos los derechos reservados.",
+  "footer-description": "Descarga videos de YouTube con Zephyra"
 }

@@ -2,6 +2,19 @@
   "welcome": "Welcome to our application! \n",
   "login": "Login",
   "logout": "Logout",
+  "nav_home": "Home",
+  "nav_about": "About",
+  "nav_contact": "Contact",
+  "download": "Download",
+  "next": "Next",
+  "download_button_placeholder": "Paste the URL here",
+  "title": "YouTube Video Downloader",
   "download_vid": "Click the button to download the video",
-  "new_something": "Hey I like you new watch"
+  "new_something": "Hey I like you new watch",
+  "footer_all_rights_reserved": "All rights reserved.",
+  "video_format_note": "Some video files may not be playable in QuickTime Player due to its limited codec support. If you encounter playback issues, we ecommend using alternative media players such as VLC Media Player or MPV, which offer broader codec compatibility. Additionally, you can convert the   video to a more compatible format using tools like FFmpeg.",
+  "about_title": "About us",
+  "about_intro": "Welcome to Our YouTube Video Downloader!",
+  "about_description": "Our website provides a simple and efficient way to download YouTube videos directly to your device. Whether you want to save your favorite music videos, tutorials, or any other content, our tool allows you to do so quickly and easily. We support various formats and qualities to ensure you get the best experience.",
+  "about.features": "Key Features"
 }

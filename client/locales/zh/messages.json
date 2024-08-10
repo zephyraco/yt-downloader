@@ -1,7 +1,9 @@
 {
   "welcome": "欢迎使用我们的应用程序！\n",
   "login": "登录",
-  "logout": "退出登录",
+  "logout": "登出",
   "download_vid": "点击按钮下载视频",
-  "new_something": "嘿，我喜欢你的新手表"
+  "new_something": "嘿，我喜欢你的新手表",
+  "footer-all-rights-reserved": "版权所有。",
+  "footer-description": "使用 Zephyra 下载 YouTube 视频"
 }
